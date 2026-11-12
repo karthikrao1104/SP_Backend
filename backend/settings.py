@@ -107,25 +107,39 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Otherwise the app falls back to the local SQLite file.
 # ---------------------------------------------------------------------------
 
-DATABASE_URL = os.environ.get('DATABASE_URL', '')
+
+# ---------------------------------------------------------------------------
+# Database Configuration
+# ---------------------------------------------------------------------------
+
+DATABASE_URL = os.environ.get('DATABASE_URL')
 
 if DATABASE_URL:
+    # Production: PostgreSQL on Render
     import dj_database_url
+
     DATABASES = {
         'default': dj_database_url.config(
             default=DATABASE_URL,
             conn_max_age=600,
+            conn_health_checks=True,
             ssl_require=True,
         )
     }
+
+elif os.environ.get('RENDER'):
+    raise ValueError(
+        "DATABASE_URL is missing. Configure PostgreSQL in Render Environment."
+    )
+
 else:
+    # Local development: SQLite
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-
 
 # ---------------------------------------------------------------------------
 # Password validation
@@ -168,8 +182,11 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
+STORAGES = {
+    'staticfiles': {
+        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+    },
+}
 
 # ---------------------------------------------------------------------------
 # Default primary key type
@@ -181,6 +198,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # ---------------------------------------------------------------------------
 # CORS  –  allow the Vercel frontend plus local dev origins
 # ---------------------------------------------------------------------------
+
+# CORS – allow the Vercel frontend plus local dev origins
 
 CORS_ALLOWED_ORIGINS = [
     # Production frontend
@@ -195,7 +214,6 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:5175',
 ]
 
-# Allow credentials (Authorization header) to be sent cross-origin
 CORS_ALLOW_CREDENTIALS = True
 
 

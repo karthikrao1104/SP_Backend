@@ -23,5 +23,7 @@ whitenoise==6.8.2
 # dj-database-url parses the DATABASE_URL environment variable set by Render.
 # psycopg2-binary is the PostgreSQL adapter.
 # Both are ignored when DATABASE_URL is not set (SQLite is used instead).
+
+
 dj-database-url==2.3.0
-psycopg2-binary==2.9.10
+psycopg[binary]>=3.2.10,<4.0
