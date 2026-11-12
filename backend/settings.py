@@ -141,8 +141,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5175",
     "http://localhost:5174",
     "http://localhost:5173",
-    "https://studentpassprediction.vercel.app",
-    "https://studentpassprediction-frontend-mkva3gatu-cc-43d9.vercel.app",
+    "https://studentpassprediction-eight.vercel.app",
 
 ]
 

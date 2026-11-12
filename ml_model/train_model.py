@@ -75,30 +75,3 @@ print("\nModel saved successfully!")
 
 # 10. Load saved PKL file
 loaded_model = joblib.load(BASE_DIR / "student_model.pkl")
-
-print("\n========== PKL FILE OUTPUT ==========")
-
-print("\nModel:")
-print(loaded_model)
-
-print("\nModel Parameters:")
-print(loaded_model.get_params())
-
-print("\nNumber of Trees:")
-print(loaded_model.n_estimators)
-
-print("\nNumber of Features:")
-print(loaded_model.n_features_in_)
-
-print("\nFeature Names:")
-print(loaded_model.feature_names_in_)
-
-print("\nFeature Importance:")
-for feature, importance in zip(
-    loaded_model.feature_names_in_,
-    loaded_model.feature_importances_
-):
-    print(feature, ":", round(importance * 100, 2), "%")
-
-print("\nClasses:")
-print(loaded_model.classes_)
