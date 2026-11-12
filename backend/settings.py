@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-67xlb_-1!!6!oijwbvuj%+071*a@*na@urf=7@b+v&r2a_uy74
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*","https://studentpassprediction-eight.vercel.app"]
 
 
 # Application definition
