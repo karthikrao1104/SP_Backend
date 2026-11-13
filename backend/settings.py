@@ -37,7 +37,7 @@ DEBUG = os.environ.get('DJANGO_DEBUG', 'False').strip().lower() == 'true'
 # Allowed hosts
 # ALLOWED_HOSTS must contain plain hostnames / IP addresses – NOT full URLs.
 # ---------------------------------------------------------------------------
-_default_hosts = 'localhost,127.0.0.1,sp-backend-3.onrender.com'
+_default_hosts = 'localhost,127.0.0.1,.onrender.com,sp-backend-3.onrender.com,sp-backend-2-5jw2.onrender.com'
 ALLOWED_HOSTS = [
     h.strip()
     for h in os.environ.get('DJANGO_ALLOWED_HOSTS', _default_hosts).split(',')
