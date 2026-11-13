@@ -20,4 +20,6 @@ urlpatterns = [
     path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 
     path('dashboard/', views.dashboard, name='dashboard'),
+
+    path('test/', views.test_api, name='test_api'),
 ]
