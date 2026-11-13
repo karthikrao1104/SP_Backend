@@ -44,3 +44,8 @@ def dashboard(request):
         "message": "Welcome to the protected dashboard",
         "username": request.user.username
     })
+@api_view(['GET'])
+def test_api(request):
+    return Response({
+        "message": "API is working fine"
+    }, status=200)
