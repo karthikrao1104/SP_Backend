@@ -2,21 +2,22 @@ from django.contrib import admin
 from django.urls import path, include
 from django.http import JsonResponse
 
-def root_health_check(request):
+def health_check(request):
+    """
+    Ultra-lightweight public health check endpoint for external schedulers
+    (cron-job.org, UptimeRobot, GitHub Actions) and Render keep-alive pings.
+    Does not invoke DB or ML models, returns pure JSON regardless of Accept header.
+    """
     return JsonResponse({
-        "status": "online",
-        "message": "Student Pass/Fail Prediction API is active",
-        "server": "online",
-        "endpoints": {
-            "test": "/api/accounts/test/",
-            "auth": "/api/accounts/",
-            "prediction": "/api/prediction/"
-        }
+        "status": "healthy",
+        "message": "Backend is running",
+        "server": "online"
     }, status=200)
 
 urlpatterns = [
-    path('', root_health_check, name='root_health_check'),
-    path('admin/', admin.site.urls),
+    path('', health_check, name='root_health_check'),
+    path('health/', health_check, name='health_check'),
     path('api/accounts/', include('accounts.urls')),
     path('api/prediction/', include('prediction.urls')),
+    path('admin/', admin.site.urls),
 ]

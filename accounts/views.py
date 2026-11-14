@@ -45,11 +45,13 @@ def dashboard(request):
         "username": request.user.username
     })
 
+from django.http import JsonResponse
+
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def test_api(request):
-    return Response({
+    return JsonResponse({
         "status": "success",
         "message": "API is working fine",
         "server": "online"
-    }, status=status.HTTP_200_OK)
+    }, status=200)
